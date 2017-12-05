@@ -17,12 +17,12 @@ figure  % Creates a figure
 scores = (scores - min(scores(:,1))); %shift to non-zero values
 scores = scores/max(scores); %divide by the max confidence value
 
-[FPR,TPR,AUC] = perfcurve(label,scores,1); %get true and false positive rates
+[FPR,TPR,AUC] = perfcurve(label,scores,1);
 
-plot(FPR,FPR,'--')
-hold on
+plot(FPR,ones(
 plot(FPR,TPR)
-hold off
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%         Your Code Ends Here         %%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

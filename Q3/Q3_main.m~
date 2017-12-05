@@ -11,11 +11,16 @@ load spamdata.mat
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 templ = templateTree('MaxNumSplits',1); %use decision stumps
-ens = fitcensemble(testing_set,testing_set_label,'Method','AdaBoostM1','Learners',templ);
-[test_predictions,testing_set_scores] = predict(ens,testing_set);
+ens = fitcensemble(testing_set,testing_set_label,'Method','AdaBoostM1','Learners',templ)
+[test_predictions,test_scores] = predict(ens,testing_set);
+size(test_scores)
 
-%only keep single column from testing_set_scores.
-testing_set_scores = testing_set_scores(:,2);
+
+for i = 1:size(test_scores,1)
+    if(test_scores(i,2) > test_scores(i,1))
+        check(i) = 1
+
+
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%         Your Code Ends Here         %%%%%%%%%%%%%%%%%%%%%
@@ -25,7 +30,7 @@ testing_set_scores = testing_set_scores(:,2);
 % %https://www.mathworks.com/help/stats/ensemble-algorithms.html#bsw8aue
 % %implement myROC function to plot the ROC curve
 % %Please figure out what is 'testing_set_scores' yourself
-myROC(testing_set_label, testing_set_scores, 'Q3 a: ROC curve of Adaboost');
+% myROC(testing_set_label, testing_set_scores, 'Q3 a: ROC curve of Adaboost')
 % 
 % %% Implement random forest with decision trees
 % % Refer to
