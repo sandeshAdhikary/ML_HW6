@@ -1,6 +1,5 @@
 %Load data
 load Q2.mat;
-% X = X(1:20,:);
 
 %Set parameters
 K=4; %You should do K=2, 3, 4

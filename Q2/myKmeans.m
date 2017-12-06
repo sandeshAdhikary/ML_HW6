@@ -26,17 +26,16 @@ Loss = zeros(maxIter,1);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%         Your Code Starts Here         %%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-I = ones(N, 1);
+I = ones(N, 1); %easier if indicator matrix initialized as ones
 
 C = datasample(X,K); %initialize centers to be random K points
-% C = X(1:K,:); %initialize centers to be first K points
 
 for iter = 1:maxIter
     
     %update the cluster assignment for each point
-    for i = 1:N
-        minClusterLoss = realmax;
-        for k = 1:K
+    for i = 1:N %loop through all points
+        minClusterLoss = realmax; %highest possible value
+        for k = 1:K %loop through all clusters
             newClusterLoss = norm(C(k,:) - X(i,:))^2;
             if newClusterLoss < minClusterLoss
                 minClusterLoss = newClusterLoss;
@@ -46,16 +45,16 @@ for iter = 1:maxIter
     end
     
     %update the centers for each cluster
-    for k = 1:K
-        mu = [0,0];
-        clusterSize = 1;
-        for i = 1:N
+    for k = 1:K %loop through all clusters
+        mu = [0,0]; %initialize at 0, since we'll add to this
+        clusterSize = 1; 
+        for i = 1:N %loop through all data points
             if I(i) == k %If point i is in the kth cluster
                 clusterSize = clusterSize + 1; %increment cluster size
                 mu = mu + X(i,:); % add point i to mean calculation
             end
         end
-        C(k,:) = mu/clusterSize;
+        C(k,:) = mu/clusterSize; %set new cluster centers
     end
     
     %update the loss
@@ -68,7 +67,7 @@ for iter = 1:maxIter
             end
         end
     end    
-    Loss(iter) = squareSum;
+    Loss(iter) = squareSum; %add to loss list
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%         Your Code Ends Here         %%%%%%%%%%%%%%%%%%%%%
