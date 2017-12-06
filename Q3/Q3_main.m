@@ -34,11 +34,13 @@ myROC(testing_set_label, testing_set_scores, 'Q3 a: ROC curve of Adaboost');
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%         Your Code Starts Here         %%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 
-% 
-% 
+
+  mdl = TreeBagger(10,training_set,training_set_label);
+ [test_predictions2,testing_set_scores2] = predict(mdl,testing_set);
+ testing_set_scores2 = testing_set_scores2(:,2);
+ 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%         Your Code Ends Here         %%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% myROC(testing_set_label, testing_set_scores2, 'Q3 b: ROC curve of random forest')
+myROC(testing_set_label, testing_set_scores2, 'Q3 b: ROC curve of random forest')
 

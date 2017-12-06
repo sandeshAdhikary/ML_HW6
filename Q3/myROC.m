@@ -14,14 +14,26 @@ figure  % Creates a figure
 %%%%%%%%%%%%%%%         Your Code Starts Here         %%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-scores = (scores - min(scores(:,1))); %shift to non-zero values
-scores = scores/max(scores); %divide by the max confidence value
+minVal = min(scores);
+maxVal = max(scores);
+%if the scores have negative values(e.g. adaboost), shift negative values
+%to positive
+if(minVal < 0)
+    scores = scores - minVal;
+end
+
+%if the scores have values greater than 1 (e.g. adaboost), scale by max 
+% value
+if(maxVal > 1)
+    scores = scores/maxVal;
+end
+
 
 [FPR,TPR,AUC] = perfcurve(label,scores,1); %get true and false positive rates
 
-plot(FPR,FPR,'--')
+plot(FPR,FPR,'r--')
 hold on
-plot(FPR,TPR)
+plot(FPR,TPR,'b-o')
 hold off
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%         Your Code Ends Here         %%%%%%%%%%%%%%%%%%%%%
