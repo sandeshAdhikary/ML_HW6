@@ -74,7 +74,7 @@ myplot('Q1 c: Estimation error',loss_est1)
 % % you should implement this part in oja_method.m
 batchsize = 2;
 pass = 1;
-eta = 0.01;
+eta = 0.001;
 [v2, lambda2,loss_real2, loss_est2] = oja_method(X, eta, batchsize, pass ,v_real, v_est);
 myplot('Q1 d: Optimization error',loss_real2)
 myplot('Q1 d: Estimation error',loss_est2)

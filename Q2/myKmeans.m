@@ -15,7 +15,7 @@ function [C, I, Loss] = myKmeans(X, K, maxIter)
 
 % construct indicator matrix (each entry corresponds to the cluster
 % of each point in X)
-I = ones(N, 1);
+I = zeros(N, 1);
 
 % construct centers matrix
 C = zeros(K, d);
@@ -26,8 +26,10 @@ Loss = zeros(maxIter,1);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%         Your Code Starts Here         %%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+I = ones(N, 1);
 
 C = datasample(X,K); %initialize centers to be random K points
+% C = X(1:K,:); %initialize centers to be first K points
 
 for iter = 1:maxIter
     
