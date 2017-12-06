@@ -17,28 +17,25 @@ function [ v, lambda, loss_real, loss_est] = power_method ( X, batchsize, pass,r
 %%%%%%%%%%%%%%%         Your Code Starts Here         %%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%Use batchsize to reduce size of X
-X = X(batchsize,:);
+max_iter = 20;
 
-%Set max_iter using passes
-max_iter = pass*batchsize;
 
-%initialize
 [n,d] = size(X);
-v = (1/sqrt(d))*ones(d,1);
 loss_real = zeros(max_iter,1);
 loss_est = zeros(max_iter,1);
-Sigma = cov(X);
 
-%iterate power method
+v = (1/sqrt(d))*ones(d,1);
+
+Sigma = transpose(X)*X;
+
 for i = 1:max_iter
-    v = Sigma*v/norm(Sigma*v);
+    v = Sigma*v/norm(Sigma*v,1);
     loss_real(i,:) = log(norm(real_w - v)^2) ;
     loss_est(i,:) = log(norm(est_w - v)^2) ;
 end
 
-%calculate lambda
 lambda = (transpose(v)*Sigma*v)/(transpose(v)*v); %Using Rayleigh Formula
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%         Your Code Ends Here         %%%%%%%%%%%%%%%%%%%%%

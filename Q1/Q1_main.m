@@ -42,7 +42,7 @@ v_real = V_s(:,maxCol_s);
 % % UD_est = U_cent*D_cent;
 % v_est = transpose(Vt_cent(1,:)); %First column of UD is the 1st principal comp.
 
-S_est = transpose(X)*X;
+S_est = cov(X);
 
 %get all eigenvalues and eigenvectors
 [V_Sest,D_Sest] = eig(S_est);
@@ -57,15 +57,16 @@ v_est = V_Sest(:,maxCol_Sest);
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%         Your Code Ends Here         %%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-disp('The empirical PC is')
-disp(v_est)
+% disp('The empirical PC is')
+% disp(v_est)
 % %% Power Iteration
 % % you should implement this part in power_method.m
-% batchsize = length(X);
-% pass = 20;
-% [v1, lambda1,loss_real1, loss_est1] = power_method(X, batchsize, pass ,v_real, v_est);
-% myplot('Q1 c: Optimization error',loss_real1)
-% myplot('Q1 c: Estimation error',loss_est1)
+batchsize = length(X);
+pass = 20;
+% power_method(X, batchsize, pass ,v_real, v_est);
+[v1, lambda1,loss_real1, loss_est1] = power_method(X, batchsize, pass ,v_real, v_est);
+myplot('Q1 c: Optimization error',loss_real1)
+myplot('Q1 c: Estimation error',loss_est1)
 % 
 % %% Oja Iteration
 % % you should implement this part in oja_method.m
@@ -77,13 +78,13 @@ disp(v_est)
 % myplot('Q1 d: Estimation error',loss_est2)
 % 
 % 
-% function myplot(mytitle,y,x)
-%     figure
-%     if (nargin == 2)
-%         plot(y,'LineWidth',2,'MarkerSize',20);
-%     else
-%         plot(x,y,'LineWidth',2,'MarkerSize',20);
-%     end
-%     title(mytitle)
-%     set(gca,'FontSize',20)
-% end
+function myplot(mytitle,y,x)
+    figure
+    if (nargin == 2)
+        plot(y,'LineWidth',2,'MarkerSize',20);
+    else
+        plot(x,y,'LineWidth',2,'MarkerSize',20);
+    end
+    title(mytitle)
+    set(gca,'FontSize',20)
+end
