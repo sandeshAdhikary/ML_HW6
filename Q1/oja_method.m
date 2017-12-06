@@ -21,7 +21,8 @@ function [ v, lambda, loss_real, loss_est] = oja_method ( X, eta, batchsize, pas
 Sigma = cov(X);
 
 %Set max_iter using passes
-max_iter = 12;
+max_iter = 500;
+% pass*batchsize;
 
 %initialize
 [n,d] = size(X);

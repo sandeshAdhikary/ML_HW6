@@ -1,4 +1,4 @@
-function [ v, lambda, loss_real, loss_est] = power_method ( X, batchsize, pass,real_w, est_w)
+function [v, lambda, loss_real, loss_est] = power_method ( X, batchsize, pass,real_w, est_w)
 
 %This is a function that performs stochastic power iteration
 %The input is X: N*d, all the input data
@@ -18,21 +18,25 @@ function [ v, lambda, loss_real, loss_est] = power_method ( X, batchsize, pass,r
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %Use batchsize to reduce size of X
-X = X(batchsize,:);
+X = X(1:batchsize,:);
 
 %Set max_iter using passes
-max_iter = pass*batchsize;
+max_iter = 500;
+% pass*batchsize;
 
 %initialize
 [n,d] = size(X);
 v = (1/sqrt(d))*ones(d,1);
 loss_real = zeros(max_iter,1);
 loss_est = zeros(max_iter,1);
-Sigma = cov(X);
+% v_dist = zeros(max_iter,1);
+Sigma = cov(X); %calculate covariance matrix
 
 %iterate power method
 for i = 1:max_iter
-    v = Sigma*v/norm(Sigma*v);
+    v_new = Sigma*v/norm(Sigma*v);
+%     v_dist(i,:) = norm(v_new-v)^2;
+    v = v_new;
     loss_real(i,:) = log(norm(real_w - v)^2) ;
     loss_est(i,:) = log(norm(est_w - v)^2) ;
 end

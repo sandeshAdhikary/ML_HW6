@@ -34,7 +34,7 @@ v_real = V_s(:,maxCol_s);
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %create the centered matrix
-% [n,d] = size(X);
+[n,d] = size(X);
 % X_cent = X;
 % % X_cent = X - (1/n)*ones(n,n)*X;
 % %get all eigenvalues and eigenvectors
@@ -42,7 +42,7 @@ v_real = V_s(:,maxCol_s);
 % % UD_est = U_cent*D_cent;
 % v_est = transpose(Vt_cent(1,:)); %First column of UD is the 1st principal comp.
 
-S_est = cov(X);
+S_est = cov(X - (1/n)*ones(n,n)*X);
 
 %get all eigenvalues and eigenvectors
 [V_Sest,D_Sest] = eig(S_est);
@@ -53,6 +53,8 @@ S_est = cov(X);
 % %pick the eigenvector corresponding to the max eigenvalue
 v_est = V_Sest(:,maxCol_Sest);
 
+%let's reverse the sign of v_est to match with v_real
+v_est = -1*v_est;
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%         Your Code Ends Here         %%%%%%%%%%%%%%%%%%%%%
@@ -65,17 +67,18 @@ batchsize = length(X);
 pass = 20;
 % power_method(X, batchsize, pass ,v_real, v_est);
 [v1, lambda1,loss_real1, loss_est1] = power_method(X, batchsize, pass ,v_real, v_est);
-myplot('Q1 c: Optimization error',loss_real1)
-myplot('Q1 c: Estimation error',loss_est1)
+% myplot('change in v',v_dist)
+% myplot('Q1 c: Optimization error',loss_real1)
+% myplot('Q1 c: Estimation error',loss_est1)
 % 
 % %% Oja Iteration
 % % you should implement this part in oja_method.m
-% batchsize = 2;
-% pass = 1;
-% eta = 0.1;
-% [v2, lambda2,loss_real2, loss_est2] = oja_method(X, eta, batchsize, pass ,v_real, v_est);
-% myplot('Q1 d: Optimization error',loss_real2)
-% myplot('Q1 d: Estimation error',loss_est2)
+batchsize = 2;
+pass = 1;
+eta = 0.1;
+[v2, lambda2,loss_real2, loss_est2] = oja_method(X, eta, batchsize, pass ,v_real, v_est);
+myplot('Q1 d: Optimization error',loss_real2)
+myplot('Q1 d: Estimation error',loss_est2)
 % 
 % 
 function myplot(mytitle,y,x)
