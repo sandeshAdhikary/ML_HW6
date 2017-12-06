@@ -35,12 +35,6 @@ v_real = V_s(:,maxCol_s);
 
 %create the centered matrix
 [n,d] = size(X);
-% X_cent = X;
-% % X_cent = X - (1/n)*ones(n,n)*X;
-% %get all eigenvalues and eigenvectors
-% [U_cent,D_cent,Vt_cent] = svd(X_cent); %SVD decomposition of centered data matrix
-% % UD_est = U_cent*D_cent;
-% v_est = transpose(Vt_cent(1,:)); %First column of UD is the 1st principal comp.
 
 S_est = cov(X - (1/n)*ones(n,n)*X);
 
@@ -65,7 +59,6 @@ v_est = -1*v_est;
 % % you should implement this part in power_method.m
 batchsize = length(X);
 pass = 20;
-% power_method(X, batchsize, pass ,v_real, v_est);
 [v1, lambda1,loss_real1, loss_est1] = power_method(X, batchsize, pass ,v_real, v_est);
 myplot('Q1 c: Optimization error',loss_real1)
 myplot('Q1 c: Estimation error',loss_est1)
