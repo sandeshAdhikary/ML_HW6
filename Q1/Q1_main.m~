@@ -34,25 +34,11 @@ v_real = V_s(:,maxCol_s);
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %create the centered matrix
-% [n,d] = size(X);
-% X_cent = X;
-% % X_cent = X - (1/n)*ones(n,n)*X;
-% %get all eigenvalues and eigenvectors
-% [U_cent,D_cent,Vt_cent] = svd(X_cent); %SVD decomposition of centered data matrix
-% % UD_est = U_cent*D_cent;
-% v_est = transpose(Vt_cent(1,:)); %First column of UD is the 1st principal comp.
-
-S_est = transpose(X)*X;
-
+[n,d] = size(X);
+X_cent = X - (1/n)*ones(n,n)*X;
 %get all eigenvalues and eigenvectors
-[V_Sest,D_Sest] = eig(S_est);
-
-%find the column number of the max eigenvalue
-[val maxCol_Sest] = max(max(D_Sest));
-% 
-% %pick the eigenvector corresponding to the max eigenvalue
-v_est = V_Sest(:,maxCol_Sest);
-
+[U_cent,D_cent,V_cent] = svd(X_cent); %SVD decomposition of centered data matrix
+v_est = (U_cent*D_cent(:,1); %First column of UD is the 1st principal comp.
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%         Your Code Ends Here         %%%%%%%%%%%%%%%%%%%%%
