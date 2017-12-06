@@ -16,6 +16,7 @@ figure  % Creates a figure
 
 minVal = min(scores);
 maxVal = max(scores);
+
 %if the scores have negative values(e.g. adaboost), shift negative values
 %to positive
 if(minVal < 0)

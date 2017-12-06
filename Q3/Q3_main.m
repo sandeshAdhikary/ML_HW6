@@ -11,10 +11,12 @@ load spamdata.mat
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 templ = templateTree('MaxNumSplits',1); %use decision stumps
-ens = fitcensemble(testing_set,testing_set_label,'Method','AdaBoostM1','Learners',templ);
+ens = fitcensemble(testing_set,testing_set_label,'Method','AdaBoostM1','Learners',templ)
 [test_predictions,testing_set_scores] = predict(ens,testing_set);
 
 %only keep single column from testing_set_scores.
+%the first column is the confidence for '0' classification
+%which is just the negative of '1' classification here
 testing_set_scores = testing_set_scores(:,2);
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -35,7 +37,7 @@ myROC(testing_set_label, testing_set_scores, 'Q3 a: ROC curve of Adaboost');
 % %%%%%%%%%%%%%%%         Your Code Starts Here         %%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  mdl = TreeBagger(10,training_set,training_set_label);
+  mdl = TreeBagger(100,training_set,training_set_label);
  [test_predictions2,testing_set_scores2] = predict(mdl,testing_set);
  testing_set_scores2 = testing_set_scores2(:,2);
  
