@@ -18,14 +18,17 @@ function [v, lambda, loss_real, loss_est] = power_method ( X, batchsize, pass,re
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %Use batchsize to reduce size of X
-X = X(1:batchsize,:);
+% X = X(1:batchsize,:);
 
 %Set max_iter using passes
-max_iter = 500;
-% pass*batchsize;
+%1 pass = N/batchsize iterations
+%so max_iter = pass * N/batchsize
+
 
 %initialize
 [n,d] = size(X);
+max_iter = pass * n/batchsize
+
 v = (1/sqrt(d))*ones(d,1);
 loss_real = zeros(max_iter,1);
 loss_est = zeros(max_iter,1);
@@ -34,8 +37,9 @@ Sigma = cov(X); %calculate covariance matrix
 
 %iterate power method
 for i = 1:max_iter
-    v_new = Sigma*v/norm(Sigma*v);
-%     v_dist(i,:) = norm(v_new-v)^2;
+    X_new = datasample(X,batchsize,'Replace',false); 
+    Sigma_new = cov(X_new);
+    v_new = Sigma_new*v/norm(Sigma_new*v);
     v = v_new;
     loss_real(i,:) = log(norm(real_w - v)^2) ;
     loss_est(i,:) = log(norm(est_w - v)^2) ;

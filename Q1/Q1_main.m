@@ -67,15 +67,14 @@ batchsize = length(X);
 pass = 20;
 % power_method(X, batchsize, pass ,v_real, v_est);
 [v1, lambda1,loss_real1, loss_est1] = power_method(X, batchsize, pass ,v_real, v_est);
-% myplot('change in v',v_dist)
-% myplot('Q1 c: Optimization error',loss_real1)
-% myplot('Q1 c: Estimation error',loss_est1)
+myplot('Q1 c: Optimization error',loss_real1)
+myplot('Q1 c: Estimation error',loss_est1)
 % 
 % %% Oja Iteration
 % % you should implement this part in oja_method.m
 batchsize = 2;
 pass = 1;
-eta = 0.1;
+eta = 0.01;
 [v2, lambda2,loss_real2, loss_est2] = oja_method(X, eta, batchsize, pass ,v_real, v_est);
 myplot('Q1 d: Optimization error',loss_real2)
 myplot('Q1 d: Estimation error',loss_est2)

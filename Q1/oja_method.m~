@@ -1,4 +1,4 @@
-function [ v, lambda, loss_real, loss_est] = oja_method ( X, eta, batchsize, pass ,real_w, est_w)
+function [ v, lambda, loss_real, loss_est,v_dist] = oja_method ( X, eta, batchsize, pass ,real_w, est_w)
 %This is a function that performs stochastic oja iteration
 %The input is X: N*d, all the input data
 %             eta: float, the step size
@@ -23,8 +23,8 @@ Sigma = cov(X);
 %initialize
     [n,d] = size(X);
     %1 pass = N/batchsize iterations so max_iter = pass * N/batchsize
-    max_iter = pass * n/batchsize;
-%     max_iter = 3;
+%     max_iter = pass * n/batchsize;
+    max_iter = 3;
 
     v = (1/sqrt(d))*ones(d,1);
     loss_real = zeros(max_iter,1);
@@ -42,14 +42,15 @@ Sigma = cov(X);
             x_j = transpose(sampled(2,:));
             %build A
             a_k = (1/2)*(x_i - x_j)*transpose((x_i - x_j));
+%             a_k
             %update v
             v_new = (v + eta*a_k*v)/norm((v + eta*a_k*v));
+            v_dist(i) = norm(v - v_new)^2;
             v = v_new;
 
             %update losses
             loss_real(i,:) = log(norm(real_w - v)^2) ;
             loss_est(i,:) = log(norm(est_w - v)^2) ;
-            
     end
 
 %calculate lambda
