@@ -11,7 +11,7 @@ load spamdata.mat
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 templ = templateTree('MaxNumSplits',1); %use decision stumps
-ens = fitcensemble(testing_set,testing_set_label,'Method','AdaBoostM1','Learners',templ)
+ens = fitcensemble(testing_set,testing_set_label,'Method','AdaBoostM1','Learners',templ);
 [test_predictions,testing_set_scores] = predict(ens,testing_set);
 
 %only keep single column from testing_set_scores.

@@ -7,10 +7,6 @@ load Q1.mat
 %%%%%%%%%%%%%%%         Your Code Starts Here         %%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%Do SVD of S, and pick the first column
-
-% %Possibly only works with Positive Semi Definite matrices
-
 %get all eigenvalues and eigenvectors
 [V_s,D_s] = eig(S);
 
